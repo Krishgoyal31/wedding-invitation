@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Wedding Invitation - Goyal Parivar</title>
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Load Tone.js for background music -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    
+    <style>
+        /* General Reset & Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #1a0a0a; /* Deep Red/Brown */
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Perfect Flex Centering for all sections */
+        .section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Welcome Section - Gate Animation */
+        #welcome {
+            background: linear-gradient(135deg, #4a0e0e 0%, #1a0a0a 50%, #2d1810 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .palace-gates {
+            position: fixed; 
+            top: 0;
+            left: 0; /* FIX: Anchor left gate to the absolute left edge */
+            /* FIX: Make gates slightly overlap for a seamless look from edge to edge */
+            width: 50.5%; 
+            height: 100%;
+            background: linear-gradient(to right, #8B4513 0%, #6B3410 100%); /* Dark Wood/Bronze */
+            transform-origin: left;
+            
+            pointer-events: none; 
+            
+            opacity: 0.05; 
+            transition: transform 1.5s ease-out, opacity 0.5s ease; 
+            
+            z-index: 10;
+            border-right: 8px solid #DAA520; /* Gold trim */
+        }
+
+        .palace-gates.right {
+            left: auto;
+            right: 0; /* Anchor right gate to the absolute right edge */
+            transform-origin: right;
+            border-right: none;
+            border-left: 8px solid #DAA520;
+            /* FIX: Use wider width for seamless look */
+            width: 50.5%;
+        }
+
+        /* Base open state (applies to right gate, rotating 90deg outwards) */
+        .palace-gates.open {
+            transform: perspective(1200px) rotateY(90deg);
+        }
+        
+        /* FIX: Left gate needs negative rotation to swing outwards */
+        .palace-gates.left.open {
+            transform: perspective(1200px) rotateY(-90deg);
+        }
+
+        .gate-pattern {
+            width: 100%;
+            height: 100%;
+            /* Subtle Jaali/Pattern effect */
+            background: 
+                radial-gradient(circle at 50% 30%, rgba(218, 165, 32, 0.3) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(218, 165, 32, 0.1) 35px, rgba(218, 165, 32, 0.1) 70px);
+        }
+
+        .welcome-content {
+            position: relative; /* Added to ensure z-index is respected */
+            text-align: center;
+            z-index: 11; /* Set z-index higher than gates (10) to be absolutely sure */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1.5s ease;
+            max-width: 90%;
+        }
+
+        .welcome-content.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .royal-emblem {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            animation: rotate-emblem 20s linear infinite;
+        }
+
+        @keyframes rotate-emblem {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .family-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: glow-text 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow-text {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: #f4e4c1;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .couple-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 30px 0;
+            color: #fff;
+        }
+
+        .bride-groom {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .heart-icon {
+            display: inline-block;
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin: 0 15px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            color: #fff;
+            border: 3px solid #FFD700;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+            letter-spacing: 2px;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+        }
+
+        /* Floating Diyas & Petals (Parallax effect) */
+        .diya {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            z-index: 100;
+            animation: flicker 2s ease-in-out infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0.8; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.5); }
+        }
+
+        .diya-glow {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        .petal {
+            position: fixed;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 99;
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Event Details Section */
+        #details {
+            background: linear-gradient(135deg, #2d1810 0%, #1a0a0a 50%, #4a0e0e 100%);
+        }
+
+        .details-content {
+            max-width: 900px;
+            text-align: center;
+            background: rgba(139, 0, 0, 0.2);
+            border: 3px solid #DAA520;
+            border-radius: 30px;
+            padding: 60px 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(218, 165, 32, 0.3);
+            width: 100%;
+        }
+
+        .mandala-bg {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            opacity: 0.1;
+            animation: rotate-slow 60s linear infinite;
+        }
+
+        .mandala-bg.top-left {
+            top: -100px;
+            left: -100px;
+        }
+
+        .mandala-bg.bottom-right {
+            bottom: -100px;
+            right: -100px;
+            animation-direction: reverse;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 50px;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .event-item {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.8s ease;
+            cursor: default;
+        }
+
+        .event-item:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .event-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .event-label {
+            font-size: 1.1rem;
+            color: #DAA520;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .event-value {
+            font-size: 1.3rem;
+            color: #f4e4c1;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stage-decoration {
+            margin: 40px 0;
+            font-size: 4rem;
+            letter-spacing: 10px;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background: linear-gradient(135deg, #4a0e0e 0%, #2d1810 50%, #1a0a0a 100%);
+        }
+
+        .gallery-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            border: 5px solid #DAA520;
+            box-shadow: 0 20px 60px rgba(218, 165, 32, 0.4);
+            margin-top: 50px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Removed background linear gradient, as image covers it */
+            position: relative;
+            overflow: hidden; /* Ensure image doesn't bleed out */
+        }
+        
+        /* New Image Styling */
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the slide area */
+            object-position: center;
+            display: block;
+            filter: brightness(0.8) grayscale(0.1); /* Subtle, elegant filter */
+            transition: all 0.5s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .carousel-slide:hover .carousel-image {
+            filter: brightness(1) grayscale(0); /* Brighten on hover */
+            transform: scale(1.03);
+        }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            pointer-events: none; /* Allows user to interact with dots below */
+            z-index: 5;
+        }
+
+        /* Removed .slide-content as it's replaced by .slide-overlay */
+
+        .slide-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #f4e4c1;
+            text-align: center;
+        }
+        
+        /* Removed .slide-icon as it's obsolete */
+
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.3);
+            border: 2px solid #DAA520;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #FFD700;
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Thank You Section */
+        #thankyou {
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d1810 50%, #4a0e0e 100%);
+            overflow: hidden;
+        }
+
+        .thankyou-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .palace-silhouette {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            z-index: 1;
+        }
+
+        /* Firework Particles */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 2s ease-out infinite;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .thankyou-message {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #f4e4c1;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .thankyou-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 40px 0;
+        }
+
+        .diya-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            font-size: 3rem;
+        }
+
+        .diya-row .diya {
+            position: relative;
+            animation: light-up 3s ease-in-out infinite;
+        }
+
+        .diya-row .diya:nth-child(1) { animation-delay: 0s; }
+        .diya-row .diya:nth-child(2) { animation-delay: 0.5s; }
+        .diya-row .diya:nth-child(3) { animation-delay: 1s; }
+        .diya-row .diya:nth-child(4) { animation-delay: 1.5s; }
+        .diya-row .diya:nth-child(5) { animation-delay: 2s; }
+
+        @keyframes light-up {
+            0%, 100% { 
+                filter: brightness(0.7);
+                transform: scale(1);
+            }
+            50% { 
+                filter: brightness(1.5);
+                transform: scale(1.2);
+            }
+        }
+
+        /* Music Toggle */
+        .music-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+            border: 3px solid #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .music-toggle.playing {
+            animation: pulse-music 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-music {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive Fixes for elegance and scale */
+        @media (max-width: 768px) {
+            /* Reduced font size for mobile elegance */
+            .family-name { font-size: 2.2rem; } 
+            .couple-names { font-size: 1.8rem; }
+            .section-title { font-size: 2.5rem; }
+            .details-content { padding: 40px 20px; }
+            .carousel-slide { height: 400px; }
+            .slide-text { font-size: 1.5rem; }
+            .thankyou-message { font-size: 1.8rem; }
+            .thankyou-signature { font-size: 2.5rem; }
+            .diya { font-size: 2rem; }
+            .event-value { font-size: 1.1rem; }
+            
+            /* Center the floating name text on smaller screens */
+            .tagline {
+                letter-spacing: 1px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .corner-ornament {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.3;
+            background: radial-gradient(circle, #FFD700 0%, transparent 70%);
+        }
+
+        .corner-ornament.top-left { top: 0; left: 0; }
+        .corner-ornament.bottom-right { bottom: 0; right: 0; }
+    </style>
+</head>
+<body>
+    <!-- Music Toggle Button -->
+    <div class="music-toggle" id="musicToggle">
+        <span style="font-size: 1.5rem;">🔇</span>
+    </div>
+
+    <!-- Floating Diyas and Petals containers -->
+    <div id="diyasContainer"></div>
+    <div id="petalsContainer"></div>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="section">
+        <div class="palace-gates left">
+            <div class="gate-pattern"></div>
+        </div>
+        <div class="palace-gates right">
+            <div class="gate-pattern"></div>
+        </div>
+
+        <div class="welcome-content" id="welcomeContent">
+            <div class="royal-emblem">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#FFD700" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="35" fill="none" stroke="#DAA520" stroke-width="1"/>
+                    <path d="M50 15 L55 35 L75 35 L60 47 L65 65 L50 52 L35 65 L40 47 L25 35 L45 35 Z" fill="#FFD700"/>
+                    <circle cx="50" cy="50" r="10" fill="#FFA500"/>
+                </svg>
+            </div>
+
+            <!-- Enhanced Invitation Block for Family and Couple Names -->
+            <p class="tagline" style="margin-bottom: 5px; font-style: italic; letter-spacing: 1px; font-size: 1rem; color: #DAA520;">
+                With the utmost reverence and the blessings of the Almighty,<br>
+                Mrs. & Mr. [Monika & Pardeep Goyal]
+            </p>
+            
+            <h1 class="family-name">The Goyal Parivar</h1>
+            
+            <p class="tagline" style="margin-top: -10px;">Request the honour of your auspicious presence at the</p>
+            <p class="tagline" style="font-size: 2rem; margin-top: 10px; font-weight: 700;">Grand Wedding Celebration</p>
+            
+            <p class="tagline" style="margin-top: 5px; margin-bottom: 5px; font-size: 1.2rem;">of their beloved Daughter and Son-in-law</p>
+            
+            <div class="couple-names">
+                <!-- Groom/Bride Names -->
+                <span class="bride-groom">NEHA</span>
+                <span class="heart-icon">💍</span>
+                <span class="bride-groom">JYOTRIMAY</span>
+            </div>
+            
+            <p class="tagline" style="margin-top: -20px; font-size: 1.1rem; color: #DAA520;">
+                D/o Mrs. & Mr. [Monika & Pardeep Goyal]<br>
+                Weds<br>
+                S/o Mrs. & Mr. [Priya & Vikas Sharma]
+            </p>
+
+            <button class="enter-btn" id="enterBtn">Enter Invitation</button>
+        </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section id="details" class="section">
+        <div class="corner-ornament top-left"></div>
+        <div class="corner-ornament bottom-right"></div>
+        
+        <!-- Mandala SVG Backgrounds -->
+        <svg class="mandala-bg top-left" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#FFD700" stroke-width="1"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#FFD700" stroke-width="1"/>
+            <circle cx="100" cy="100" r="40" fill="none" stroke="#FFD700" stroke-width="1"/>
+            <path d="M100 20 L108 92 L180 100 L108 108 L100 180 L92 108 L20 100 L92 92 Z" fill="#FFD700" opacity="0.5"/>
+        </svg>
+
+        <svg class="mandala-bg bottom-right" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#FFD700" stroke-width="1"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#FFD700" stroke-width="1"/>
+            <circle cx="100" cy="100" r="40" fill="none" stroke="#FFD700" stroke-width="1"/>
+            <path d="M100 20 L108 92 L180 100 L108 108 L100 180 L92 108 L20 100 L92 92 Z" fill="#FFD700" opacity="0.5"/>
+        </svg>
+
+        <div class="details-content">
+            <h2 class="section-title">Wedding Details</h2>
+
+            <div class="stage-decoration">🕉️ ✨ 🕉️</div>
+
+            <div class="event-grid">
+                <!-- Items are styled with opacity 0 and transformed in JS to enable the scroll-reveal animation -->
+                <div class="event-item">
+                    <div class="event-icon">🗓️</div>
+                    <div class="event-label">Date</div>
+                    <div class="event-value">Sunday, 30th November 2025</div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-icon">🕐</div>
+                    <div class="event-label">Time</div>
+                    <div class="event-value">7:30 PM onwards</div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-icon">🏛️</div>
+                    <div class="event-label">Venue</div>
+                    <div class="event-value">The Heaven Palace, Pundri</div>
+                </div>
+            </div>
+
+            <div class="stage-decoration" style="margin-top: 50px;">🪔 🌺 🪔</div>
+
+            <p style="font-size: 1.3rem; color: #f4e4c1; margin-top: 40px; font-style: italic;">
+                Join us in celebrating this sacred union<br>
+                blessed by tradition and love
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="gallery-content">
+            <h2 class="section-title">Memories in Making</h2>
+
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    
+                    <!-- SLIDE 1: Engagement Photo -->
+                    <div class="carousel-slide">
+                        <img 
+                            src="https://encrypted-tbn0.gstat\T3U5I8v63YXBEdoIT0Q&s" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/1200x500/6B3410/DAA520?text=Image+Loading+Failed'"
+                            class="carousel-image" 
+                            alt="Rhea and Arjun at their engagement ceremony">
+                        <div class="slide-overlay">
+                            <div class="slide-text">The Beginning of Forever</div>
+                        </div>
+                    </div>
+                    
+                    <!-- SLIDE 2: Couple Portrait -->
+                    <div class="carousel-slide">
+                        <img 
+                            src="https://placehold.co/1200x500/4a0e0e/FFD700?text=Couple+Portrait" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/1200x500/6B3410/DAA520?text=Image+Loading+Failed'"
+                            class="carousel-image" 
+                            alt="A beautiful portrait of the couple">
+                        <div class="slide-overlay">
+                            <div class="slide-text">Love in Every Frame</div>
+                        </div>
+                    </div>
+                    
+                    <!-- SLIDE 3: Family Photo -->
+                    <div class="carousel-slide">
+                        <img 
+                            src="https://placehold.co/1200x500/2d1810/FFD700?text=Family+Blessings+Photo" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/1200x500/6B3410/DAA520?text=Image+Loading+Failed'"
+                            class="carousel-image" 
+                            alt="The Goyal and Sharma families together">
+                        <div class="slide-overlay">
+                            <div class="slide-text">Blessed by Both Families</div>
+                        </div>
+                    </div>
+                    
+                    <!-- SLIDE 4: Sangeet/Celebration -->
+                    <div class="carousel-slide">
+                        <img 
+                            src="https://placehold.co/1200x500/1a0a0a/FFA500?text=Sangeet+Celebration+Photo" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/1200x500/6B3410/DAA520?text=Image+Loading+Failed'"
+                            class="carousel-image" 
+                            alt="Fun moment from a pre-wedding function">
+                        <div class="slide-overlay">
+                            <div class="slide-text">Joyful Celebrations</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="carousel-nav" id="carouselNav"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thank You Section -->
+    <section id="thankyou" class="section">
+        <div class="palace-silhouette">
+            <svg viewBox="0 0 1200 300" style="width: 100%; height: 100%;">
+                <!-- Stylized Palace Silhouette Path -->
+                <path d="M0 300 L0 200 L150 150 L200 180 L250 150 L300 200 L350 180 L400 200 L450 150 L500 180 L550 150 L600 100 L650 150 L700 180 L750 150 L800 200 L850 180 L900 200 L950 150 L1000 180 L1050 150 L1200 200 L1200 300 Z" 
+                      fill="rgba(139, 69, 19, 0.6)"/>
+            </svg>
+        </div>
+
+        <div id="fireworksContainer"></div>
+
+        <div class="thankyou-content">
+            <div class="thankyou-message">
+                With heartfelt love and blessings,<br>
+                we invite you to grace this<br>
+                royal union with your presence
+            </div>
+
+            <div class="thankyou-signature">The Goyal Parivar</div>
+
+            <div style="font-size: 3rem; margin: 30px 0;">❤️</div>
+
+            <div class="thankyou-date">30th November 2025</div>
+
+            <div class="diya-row">
+                <span class="diya">🪔</span>
+                <span class="diya">🪔</span>
+                <span class="diya">🪔</span>
+                <span class="diya">🪔</span>
+                <span class="diya">🪔</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Tone.js Setup for Background Music
+        const musicToggle = document.getElementById('musicToggle');
+        let musicPlaying = false;
+        let synth = null;
+        let part = null;
+
+        function initAudio() {
+            if (synth) return;
+
+            // Create a ceremonial, shehnai/sitar-like drone/melody using DuoSynth
+            synth = new Tone.DuoSynth({
+                vibratoAmount: 0.5,
+                vibratoRate: 5,
+                harmonicity: 1.5, // Creates a richer, detuned sound
+                voice0: {
+                    volume: -10,
+                    portamento: 0.05,
+                    oscillator: { type: "sawtooth" },
+                    filter: { Q: 2, type: "lowpass", frequency: 1500 },
+                    envelope: {
+                        attack: 2,
+                        decay: 0.1,
+                        sustain: 0.9,
+                        release: 2
+                    }
+                },
+                voice1: {
+                    volume: -15,
+                    portamento: 0.05,
+                    oscillator: { type: "sine" },
+                    filter: { Q: 2, type: "lowpass", frequency: 1000 },
+                    envelope: {
+                        attack: 3,
+                        decay: 0.1,
+                        sustain: 0.8,
+                        release: 3
+                    },
+                }
+            }).toDestination();
+
+            // Simple C Major/F Major sequence for a looping ceremonial feel (Raga-like drone)
+            part = new Tone.Sequence((time, note) => {
+                synth.triggerAttackRelease(note, "2n", time);
+            }, ["C4", "G3", "C4", "F3"]).start(0);
+
+            Tone.Transport.loop = true;
+            Tone.Transport.loopEnd = "2m"; // Loop every 2 measures
+        }
+
+        // Music toggle event listener
+        musicToggle.addEventListener('click', async function() {
+            try {
+                if (Tone.context.state !== 'running') {
+                    await Tone.start();
+                }
+                initAudio();
+                
+                musicPlaying = !musicPlaying;
+                this.classList.toggle('playing', musicPlaying);
+                
+                if (musicPlaying) {
+                    Tone.Transport.start();
+                    this.innerHTML = '<span style="font-size: 1.5rem;">🔊</span>';
+                } else {
+                    Tone.Transport.stop();
+                    this.innerHTML = '<span style="font-size: 1.5rem;">🔇</span>';
+                }
+            } catch (error) {
+                console.error("Audio failed to start:", error);
+                // Optionally show a message box about audio failure
+            }
+        });
+
+
+        // Create floating diyas 
+        function createDiyas() {
+            const container = document.getElementById('diyasContainer');
+            const positions = [
+                { top: '10%', left: '5%' }, { top: '25%', left: '3%' }, { top: '40%', left: '6%' },
+                { top: '55%', left: '4%' }, { top: '70%', left: '5%' }, { top: '10%', right: '5%' },
+                { top: '25%', right: '3%' }, { top: '40%', right: '6%' }, { top: '55%', right: '4%' },
+                { top: '70%', right: '5%' }
+            ];
+
+            positions.forEach((pos, i) => {
+                const diya = document.createElement('div');
+                diya.className = 'diya';
+                diya.innerHTML = '🪔<div class="diya-glow"></div>';
+                Object.assign(diya.style, pos);
+                diya.style.animationDelay = `${i * 0.3}s`;
+                container.appendChild(diya);
+            });
+        }
+
+        // Create floating petals
+        function createPetals() {
+            const container = document.getElementById('petalsContainer');
+            const petalTypes = ['🌸', '🌺', '🏵️', '🌼'];
+
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.textContent = petalTypes[Math.floor(Math.random() * petalTypes.length)];
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.animationDuration = `${8 + Math.random() * 6}s`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        // Create fireworks
+        function createFireworks() {
+            const container = document.getElementById('fireworksContainer');
+            const colors = ['#FFD700', '#FFA500', '#FF6B6B', '#FF69B4', '#87CEEB'];
+
+            setInterval(() => {
+                const firework = document.createElement('div');
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const startX = Math.random() * window.innerWidth;
+                const startY = window.innerHeight - Math.random() * 200;
+
+                firework.style.position = 'absolute';
+                firework.style.left = `${startX}px`;
+                firework.style.top = `${startY}px`;
+
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'firework';
+                    particle.style.background = color;
+                    particle.style.left = '0px';
+                    particle.style.top = '0px';
+                    
+                    const angle = (Math.PI * 2 * i) / 30;
+                    const velocity = 50 + Math.random() * 100;
+                    particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
+                    particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
+                    particle.style.animationDelay = `${Math.random() * 0.5}s`;
+                    
+                    firework.appendChild(particle);
+                }
+
+                container.appendChild(firework);
+
+                setTimeout(() => {
+                    firework.remove();
+                }, 2500);
+            }, 1500);
+        }
+
+        // Entrance animation: OPENS THE GATES AND SCROLLS DOWN
+        document.getElementById('enterBtn').addEventListener('click', function() {
+            const gates = document.querySelectorAll('.palace-gates');
+            gates.forEach(gate => {
+                // Make gates fully visible just before they start moving
+                gate.style.opacity = '1'; 
+                
+                // Temporarily allow clicks on the gates so they don't visually break 
+                // when opening (though pointer-events: none is the key here)
+                gate.style.pointerEvents = 'auto'; 
+                
+                gate.classList.add('open');
+            });
+
+            console.log("Entering invitation...");
+
+            // FIX: Match timeout to new 1.5s CSS animation duration
+            setTimeout(() => {
+                document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+            }, 1500); 
+        });
+
+        // Show welcome content immediately 
+        document.getElementById('welcomeContent').classList.add('visible');
+
+        // Carousel functionality 
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const navContainer = document.getElementById('carouselNav');
+        
+        // Dynamic dots generation - ensure it updates after HTML changes
+        if (navContainer) {
+            navContainer.innerHTML = ''; // Clear existing dots if any
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                navContainer.appendChild(dot);
+            });
+        }
+
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 4000);
+
+        // Smooth scroll reveal animations (using IntersectionObserver)
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.event-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'all 0.8s ease';
+            observer.observe(item);
+        });
+
+        // Initialize effects
+        window.onload = function() {
+            createDiyas();
+            createPetals();
+            createFireworks();
+        }
+
+        // Parallax effect for sections 
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            document.querySelectorAll('.mandala-bg').forEach(mandala => {
+                // Ensure rotation is smooth and relative to scroll
+                mandala.style.transform = `rotate(${scrolled * 0.05}deg)`;
+            });
+        });
+
+        // Add staggered animation to event items
+        document.querySelectorAll('.event-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.2}s`;
+        });
+
+        // Cursor trail effect
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = '#FFD700';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '9999';
+                sparkle.style.animation = 'sparkle-fade 1s ease-out forwards';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        });
+
+        // Add sparkle animation CSS
+        const style = document.createElement('style');
+        style.textContent += `
+            @keyframes sparkle-fade {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
