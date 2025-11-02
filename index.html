@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Royal Wedding Invitation - Goyal Parivar</title>
-    <!-- Load Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Load Tone.js for background music -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     
     <style>
@@ -45,8 +43,7 @@
         .palace-gates {
             position: fixed; 
             top: 0;
-            left: 0; /* FIX: Anchor left gate to the absolute left edge */
-            /* FIX: Make gates slightly overlap for a seamless look from edge to edge */
+            left: 0; 
             width: 50.5%; 
             height: 100%;
             background: linear-gradient(to right, #8B4513 0%, #6B3410 100%); /* Dark Wood/Bronze */
@@ -63,11 +60,10 @@
 
         .palace-gates.right {
             left: auto;
-            right: 0; /* Anchor right gate to the absolute right edge */
+            right: 0; 
             transform-origin: right;
             border-right: none;
             border-left: 8px solid #DAA520;
-            /* FIX: Use wider width for seamless look */
             width: 50.5%;
         }
 
@@ -215,6 +211,11 @@
             background: radial-gradient(circle, rgba(255, 140, 0, 0.6) 0%, transparent 70%);
             border-radius: 50%;
             animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .petal {
@@ -373,19 +374,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Removed background linear gradient, as image covers it */
             position: relative;
-            overflow: hidden; /* Ensure image doesn't bleed out */
+            overflow: hidden; 
         }
         
         /* New Image Styling */
         .carousel-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image covers the slide area */
+            object-fit: cover; 
             object-position: center;
             display: block;
-            filter: brightness(0.8) grayscale(0.1); /* Subtle, elegant filter */
+            filter: brightness(0.8) grayscale(0.1); 
             transition: all 0.5s ease;
             position: absolute;
             top: 0;
@@ -393,7 +393,7 @@
         }
         
         .carousel-slide:hover .carousel-image {
-            filter: brightness(1) grayscale(0); /* Brighten on hover */
+            filter: brightness(1) grayscale(0); 
             transform: scale(1.03);
         }
 
@@ -404,11 +404,9 @@
             right: 0;
             padding: 30px;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-            pointer-events: none; /* Allows user to interact with dots below */
+            pointer-events: none; 
             z-index: 5;
         }
-
-        /* Removed .slide-content as it's replaced by .slide-overlay */
 
         .slide-text {
             font-family: 'Playfair Display', serif;
@@ -417,8 +415,6 @@
             text-align: center;
         }
         
-        /* Removed .slide-icon as it's obsolete */
-
 
         .carousel-nav {
             position: absolute;
@@ -570,27 +566,7 @@
             50% { transform: scale(1.1); }
         }
 
-        /* Responsive Fixes for elegance and scale */
-        @media (max-width: 768px) {
-            /* Reduced font size for mobile elegance */
-            .family-name { font-size: 2.2rem; } 
-            .couple-names { font-size: 1.8rem; }
-            .section-title { font-size: 2.5rem; }
-            .details-content { padding: 40px 20px; }
-            .carousel-slide { height: 400px; }
-            .slide-text { font-size: 1.5rem; }
-            .thankyou-message { font-size: 1.8rem; }
-            .thankyou-signature { font-size: 2.5rem; }
-            .diya { font-size: 2rem; }
-            .event-value { font-size: 1.1rem; }
-            
-            /* Center the floating name text on smaller screens */
-            .tagline {
-                letter-spacing: 1px;
-                margin-bottom: 20px;
-            }
-        }
-
+        /* Corner Ornaments */
         .corner-ornament {
             position: absolute;
             width: 150px;
@@ -601,19 +577,124 @@
 
         .corner-ornament.top-left { top: 0; left: 0; }
         .corner-ornament.bottom-right { bottom: 0; right: 0; }
+
+        /* ========================================= */
+        /* === MOBILE RESPONSIVENESS START HERE === */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            /* General padding for sections */
+            .section {
+                padding: 10px;
+            }
+
+            /* 1. WELCOME SECTION FONT SCALING */
+            .royal-emblem {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 20px;
+            }
+
+            /* Family Name: Reduced from 4rem to 2.5rem */
+            .family-name { 
+                font-size: 2.5rem; 
+            } 
+            
+            /* General Tagline/Host Name: Ensure it's legible and uses less space */
+            .tagline {
+                font-size: 1rem !important; /* Use !important to override inline styles */
+                letter-spacing: 1px;
+                margin-top: 5px !important;
+                margin-bottom: 5px !important;
+            }
+            /* Large Tagline */
+            .tagline[style*="2rem"] {
+                font-size: 1.5rem !important;
+            }
+
+            /* Couple Names: Reduced from 3rem to 2rem */
+            .couple-names { 
+                font-size: 2rem; 
+                margin: 20px 0;
+            }
+            
+            /* Enter Button: Slightly smaller */
+            .enter-btn {
+                padding: 15px 40px;
+                font-size: 1.1rem;
+                margin-top: 30px;
+            }
+
+            /* 2. GATE POSITION FIX */
+            .palace-gates {
+                width: 50vw; /* Use viewport width for exact half */
+                transition: transform 1s ease-out, opacity 0.5s ease;
+            }
+            .palace-gates.right {
+                width: 50vw;
+            }
+
+            /* 3. DETAILS SECTION ADJUSTMENTS */
+            .section-title { 
+                font-size: 2.5rem; 
+                margin-bottom: 30px;
+            }
+            .details-content { 
+                padding: 40px 20px; 
+            }
+            .event-grid {
+                /* Allows items to stack vertically on small screens */
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+            .event-value { 
+                font-size: 1.1rem; 
+            }
+            .stage-decoration {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+            
+            /* 4. GALLERY ADJUSTMENTS */
+            .carousel-slide { 
+                height: 350px; /* Reduced height for vertical space */
+            }
+            .slide-text { 
+                font-size: 1.2rem; 
+            }
+            
+            /* 5. THANK YOU SECTION */
+            .thankyou-message { 
+                font-size: 1.5rem; 
+                margin-bottom: 20px;
+            }
+            .thankyou-signature { 
+                font-size: 2.5rem; 
+            }
+
+            /* 6. Music Toggle Placement */
+            .music-toggle {
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            .music-toggle span {
+                font-size: 1.2rem !important;
+            }
+        }
+        /* ========================================= */
+        /* === MOBILE RESPONSIVENESS END HERE === */
+        /* ========================================= */
     </style>
 </head>
 <body>
-    <!-- Music Toggle Button -->
     <div class="music-toggle" id="musicToggle">
         <span style="font-size: 1.5rem;">🔇</span>
     </div>
 
-    <!-- Floating Diyas and Petals containers -->
     <div id="diyasContainer"></div>
     <div id="petalsContainer"></div>
 
-    <!-- Welcome Section -->
     <section id="welcome" class="section">
         <div class="palace-gates left">
             <div class="gate-pattern"></div>
@@ -632,7 +713,6 @@
                 </svg>
             </div>
 
-            <!-- Enhanced Invitation Block for Family and Couple Names -->
             <p class="tagline" style="margin-bottom: 5px; font-style: italic; letter-spacing: 1px; font-size: 1rem; color: #DAA520;">
                 With the utmost reverence and the blessings of the Almighty,<br>
                 Mrs. & Mr. [Monika & Pardeep Goyal]
@@ -646,7 +726,6 @@
             <p class="tagline" style="margin-top: 5px; margin-bottom: 5px; font-size: 1.2rem;">of their beloved Daughter and Son-in-law</p>
             
             <div class="couple-names">
-                <!-- Groom/Bride Names -->
                 <span class="bride-groom">NEHA</span>
                 <span class="heart-icon">💍</span>
                 <span class="bride-groom">JYOTRIMAY</span>
@@ -662,12 +741,10 @@
         </div>
     </section>
 
-    <!-- Event Details Section -->
     <section id="details" class="section">
         <div class="corner-ornament top-left"></div>
         <div class="corner-ornament bottom-right"></div>
         
-        <!-- Mandala SVG Backgrounds -->
         <svg class="mandala-bg top-left" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="80" fill="none" stroke="#FFD700" stroke-width="1"/>
             <circle cx="100" cy="100" r="60" fill="none" stroke="#FFD700" stroke-width="1"/>
@@ -688,7 +765,6 @@
             <div class="stage-decoration">🕉️ ✨ 🕉️</div>
 
             <div class="event-grid">
-                <!-- Items are styled with opacity 0 and transformed in JS to enable the scroll-reveal animation -->
                 <div class="event-item">
                     <div class="event-icon">🗓️</div>
                     <div class="event-label">Date</div>
@@ -717,7 +793,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section id="gallery" class="section">
         <div class="gallery-content">
             <h2 class="section-title">Memories in Making</h2>
@@ -725,7 +800,6 @@
             <div class="carousel-container">
                 <div class="carousel-track" id="carouselTrack">
                     
-                    <!-- SLIDE 1: Engagement Photo -->
                     <div class="carousel-slide">
                         <img 
                             src="https://encrypted-tbn0.gstat\T3U5I8v63YXBEdoIT0Q&s" 
@@ -737,7 +811,6 @@
                         </div>
                     </div>
                     
-                    <!-- SLIDE 2: Couple Portrait -->
                     <div class="carousel-slide">
                         <img 
                             src="https://placehold.co/1200x500/4a0e0e/FFD700?text=Couple+Portrait" 
@@ -749,7 +822,6 @@
                         </div>
                     </div>
                     
-                    <!-- SLIDE 3: Family Photo -->
                     <div class="carousel-slide">
                         <img 
                             src="https://placehold.co/1200x500/2d1810/FFD700?text=Family+Blessings+Photo" 
@@ -761,7 +833,6 @@
                         </div>
                     </div>
                     
-                    <!-- SLIDE 4: Sangeet/Celebration -->
                     <div class="carousel-slide">
                         <img 
                             src="https://placehold.co/1200x500/1a0a0a/FFA500?text=Sangeet+Celebration+Photo" 
@@ -780,11 +851,9 @@
         </div>
     </section>
 
-    <!-- Thank You Section -->
     <section id="thankyou" class="section">
         <div class="palace-silhouette">
             <svg viewBox="0 0 1200 300" style="width: 100%; height: 100%;">
-                <!-- Stylized Palace Silhouette Path -->
                 <path d="M0 300 L0 200 L150 150 L200 180 L250 150 L300 200 L350 180 L400 200 L450 150 L500 180 L550 150 L600 100 L650 150 L700 180 L750 150 L800 200 L850 180 L900 200 L950 150 L1000 180 L1050 150 L1200 200 L1200 300 Z" 
                       fill="rgba(139, 69, 19, 0.6)"/>
             </svg>
@@ -965,24 +1034,30 @@
             }, 1500);
         }
 
-        // Entrance animation: OPENS THE GATES AND SCROLLS DOWN
+        // Entrance animation: OPENS THE GATES AND SCROLLS DOWN (Includes improved gate fade-out)
         document.getElementById('enterBtn').addEventListener('click', function() {
             const gates = document.querySelectorAll('.palace-gates');
+            
+            // Disable the button immediately to prevent re-click during animation
+            this.disabled = true; 
+
             gates.forEach(gate => {
                 // Make gates fully visible just before they start moving
                 gate.style.opacity = '1'; 
-                
-                // Temporarily allow clicks on the gates so they don't visually break 
-                // when opening (though pointer-events: none is the key here)
-                gate.style.pointerEvents = 'auto'; 
-                
+                gate.style.pointerEvents = 'auto'; // Temporarily enable pointer events
                 gate.classList.add('open');
             });
 
             console.log("Entering invitation...");
 
-            // FIX: Match timeout to new 1.5s CSS animation duration
             setTimeout(() => {
+                // 1. FADE GATES OUT AND DISABLE POINTERS
+                gates.forEach(gate => {
+                    gate.style.opacity = '0';
+                    gate.style.pointerEvents = 'none'; // Return to default
+                });
+                
+                // 2. Scroll to the details section
                 document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
             }, 1500); 
         });
@@ -996,7 +1071,7 @@
         const slides = document.querySelectorAll('.carousel-slide');
         const navContainer = document.getElementById('carouselNav');
         
-        // Dynamic dots generation - ensure it updates after HTML changes
+        // Dynamic dots generation
         if (navContainer) {
             navContainer.innerHTML = ''; // Clear existing dots if any
             slides.forEach((slide, index) => {
