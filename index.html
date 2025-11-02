@@ -87,9 +87,9 @@
         }
 
         .welcome-content {
-            position: relative; /* Added to ensure z-index is respected */
+            position: relative; 
             text-align: center;
-            z-index: 11; /* Set z-index higher than gates (10) to be absolutely sure */
+            z-index: 11; 
             opacity: 0;
             transform: scale(0.8);
             transition: all 1.5s ease;
@@ -418,7 +418,7 @@
 
         .carousel-nav {
             position: absolute;
-            bottom: 30px;
+            bottom: 33px; /* Adjusted slightly up */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -579,7 +579,7 @@
         .corner-ornament.bottom-right { bottom: 0; right: 0; }
 
         /* ========================================= */
-        /* === MOBILE RESPONSIVENESS START HERE === */
+        /* === MOBILE RESPONSIVENESS OPTIMIZATION === */
         /* ========================================= */
         @media (max-width: 768px) {
             /* General padding for sections */
@@ -587,46 +587,50 @@
                 padding: 10px;
             }
 
-            /* 1. WELCOME SECTION FONT SCALING */
+            /* 1. WELCOME SECTION FONT SCALING & SPACING */
             .royal-emblem {
                 width: 80px;
                 height: 80px;
                 margin-bottom: 20px;
             }
 
-            /* Family Name: Reduced from 4rem to 2.5rem */
+            /* Family Name: The main focal point */
             .family-name { 
                 font-size: 2.5rem; 
+                margin-bottom: 15px;
             } 
             
-            /* General Tagline/Host Name: Ensure it's legible and uses less space */
+            /* General Tagline/Host Name: Ensure it's legible and uses less vertical space */
             .tagline {
-                font-size: 1rem !important; /* Use !important to override inline styles */
-                letter-spacing: 1px;
-                margin-top: 5px !important;
-                margin-bottom: 5px !important;
+                font-size: 0.9rem !important; /* Base size reduced slightly */
+                line-height: 1.3;
+                letter-spacing: 0.5px;
+                margin-top: 3px !important;
+                margin-bottom: 3px !important;
             }
-            /* Large Tagline */
+            /* Grand Celebration Tagline */
             .tagline[style*="2rem"] {
-                font-size: 1.5rem !important;
+                font-size: 1.4rem !important;
+                margin-top: 10px !important;
+                margin-bottom: 10px !important;
             }
 
-            /* Couple Names: Reduced from 3rem to 2rem */
+            /* Couple Names: Key focus, keep it prominent but scaled */
             .couple-names { 
-                font-size: 2rem; 
-                margin: 20px 0;
+                font-size: 1.8rem; 
+                margin: 15px 0;
             }
             
             /* Enter Button: Slightly smaller */
             .enter-btn {
-                padding: 15px 40px;
-                font-size: 1.1rem;
+                padding: 12px 30px;
+                font-size: 1rem;
                 margin-top: 30px;
             }
 
             /* 2. GATE POSITION FIX */
             .palace-gates {
-                width: 50vw; /* Use viewport width for exact half */
+                width: 50vw; 
                 transition: transform 1s ease-out, opacity 0.5s ease;
             }
             .palace-gates.right {
@@ -635,55 +639,58 @@
 
             /* 3. DETAILS SECTION ADJUSTMENTS */
             .section-title { 
-                font-size: 2.5rem; 
-                margin-bottom: 30px;
+                font-size: 2.2rem; 
+                margin-bottom: 25px;
             }
             .details-content { 
-                padding: 40px 20px; 
+                padding: 30px 15px; 
             }
             .event-grid {
-                /* Allows items to stack vertically on small screens */
+                /* Stack event items vertically on small screens */
                 grid-template-columns: 1fr; 
-                gap: 20px;
+                gap: 15px;
             }
+            .event-label { font-size: 1rem; }
             .event-value { 
                 font-size: 1.1rem; 
             }
             .stage-decoration {
-                font-size: 2.5rem;
+                font-size: 2rem;
                 letter-spacing: 5px;
             }
             
             /* 4. GALLERY ADJUSTMENTS */
             .carousel-slide { 
-                height: 350px; /* Reduced height for vertical space */
+                height: 300px; /* Further reduced height for vertical space */
             }
             .slide-text { 
-                font-size: 1.2rem; 
+                font-size: 1.1rem; 
+            }
+            .carousel-dot {
+                width: 10px;
+                height: 10px;
             }
             
             /* 5. THANK YOU SECTION */
             .thankyou-message { 
-                font-size: 1.5rem; 
-                margin-bottom: 20px;
+                font-size: 1.4rem; 
+                margin-bottom: 15px;
             }
             .thankyou-signature { 
-                font-size: 2.5rem; 
+                font-size: 2.2rem; 
             }
 
             /* 6. Music Toggle Placement */
             .music-toggle {
-                top: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
             }
             .music-toggle span {
-                font-size: 1.2rem !important;
+                font-size: 1rem !important;
             }
         }
-        /* ========================================= */
-        /* === MOBILE RESPONSIVENESS END HERE === */
         /* ========================================= */
     </style>
 </head>
